@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Pokemon Magazine</title>
+</head>
+
+<body>
+
+    <div class="magazine-container">
+        <div class="flipbook">
+            <div class="hard">Happy Birthday, my lil bro</div>
+            <div class="hard"></div>
+
+            <div class="page">
+                <small>Lets Look At Some Amazing Pokemon ❤️</small>
+                <small>Gotta Catch 'Em All</small>
+            </div>
+
+            <div class="page letter-page">
+                <h1>Veshi kotorie</h1>
+                <div class="letter-collage">
+                    <img class="letter manera-rechi" src="images/veshi/letter.png" alt="Letter"
+                        style="top: 10%; left: 8%; height: 22% !important; --base-rotate: -12deg; filter: sepia(1) saturate(1.8) drop-shadow(0 8px 8px rgba(48, 30, 20, 0.3));" />
+                    <img class="letter byti" src="images/veshi/letter.png" alt="Letter"
+                        style="top: 35%; right: 20%; height: 76% !important; --base-rotate: 9deg; filter: sepia(0.75) hue-rotate(320deg) saturate(2.2) drop-shadow(0 8px 8px rgba(48, 30, 20, 0.3));" />
+                    <img class="letter music-taste" src="images/veshi/letter.png" alt="Letter"
+                        style="top: 13%; left: 44%; height: 32% !important; --base-rotate: 3deg; filter: sepia(0.65) hue-rotate(165deg) saturate(2.5) drop-shadow(0 8px 8px rgba(48, 30, 20, 0.3));" />
+                </div>
+            </div>
+
+            <div class="page letter-page">
+                <h1>ya lybly v tebe</h1>
+                <div class="letter-collage">
+                    <img class="letter" src="images/veshi/letter.png" alt="Letter"
+                        style="top: 8%; left: 10%; height: 72% !important; --base-rotate: -6deg; filter: sepia(1) saturate(1.8) drop-shadow(0 8px 8px rgba(48, 30, 20, 0.3));" />
+                    <img class="letter" src="images/veshi/letter.png" alt="Letter"
+                        style="top: 58%; right: 7%; height: 36% !important; --base-rotate: 19deg; filter: sepia(0.75) hue-rotate(320deg) saturate(2.2) drop-shadow(0 8px 8px rgba(48, 30, 20, 0.3));" />
+                </div>
+            </div>
+
+            <div class="page">
+                <h1>Veshi kotorie</h1>
+                <img src="images/img-3.png" alt="Pikachu" />
+            </div>
+
+            <div class="page">
+                <h1>napominayut o tebe</h1>
+                <img src="images/img-4.png" alt="Mew" />
+            </div>
+
+            <div class="page">
+                <img src="images/img-5.png" alt="Darkrai" />
+                <small>Darkrai</small>
+            </div>
+
+            <div class="hard"></div>
+            <div class="hard">Thank You <small>~ HankTheTank</small></div>
+        </div>
+    </div>
+
+    <div class="memory-overlay" id="memory-overlay" aria-hidden="true" hidden>
+        <div class="paper-stage" role="dialog" aria-modal="true" aria-label="Letter keepsakes">
+            <img class="paper-background" src="images/veshi/manera/manera.png" alt="" />
+            <div class="paper-pieces" id="paper-pieces"></div>
+        </div>
+    </div>
+
+    <!-- jQuery & Turn.js CDNs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.flipbook').turn({
+                width: 1000,
+                height: 600,
+                autoCenter: true,
+                acceleration: true,
+                elevation: 50,
+                gradients: true,
+                when: {
+                    turned: function (e, page) {
+                        console.log('Current page: ', page);
+                    }
+                }
+            });
+
+            $('.flipbook').on('click', function (event) {
+                var letter = $(event.target).closest('.manera-rechi, .byti, .music-taste');
+                if (letter.length) {
+                    var isManera = letter.hasClass('manera-rechi');
+                    var imagePath = isManera
+                        ? 'images/veshi/manera/manera.png'
+                        : letter.hasClass('byti')
+                            ? 'images/veshi/byti/your byti.png'
+                            : 'images/veshi/music/music taste.png';
+                    $('#memory-overlay .paper-background').attr('src', imagePath);
+                    $('#memory-overlay .paper-stage').attr('aria-label',
+                        isManera ? 'Letter keepsakes' : 'Letter image');
+                    $('#paper-pieces').prop('hidden', !isManera);
+                    $('#memory-overlay').prop('hidden', false).attr('aria-hidden', 'false');
+                    return;
+                }
+
+                var midpoint = this.getBoundingClientRect().left + this.getBoundingClientRect().width / 2;
+                $(this).turn(event.clientX < midpoint ? 'previous' : 'next');
+            });
+
+            var keepsakes = [
+                ['0 (1).png', 15, 25, 18, -14],
+                ['0 (2).png', 35, 18, 15, 11],
+                ['0 (3).png', 58, 24, 21, -8],
+                ['0 (4).png', 82, 20, 17, 17],
+                ['0 (5).png', 24, 48, 22, 9],
+                ['0 (6).png', 47, 43, 15, -19],
+                ['0 (7).png', 70, 50, 19, 13],
+                ['0 (8).png', 12, 72, 15, 20],
+                ['0 (9).png', 38, 72, 24, -11],
+                ['0 (10).png', 61, 70, 17, 8],
+                ['0 (11).png', 86, 74, 19, -16],
+                ['0 (12).png', 78, 43, 14, 22],
+                ['0 (13).png', 30, 34, 12, -23],
+                ['0 (14).png', 52, 83, 18, 16],
+                ['0 (15).png', 92, 48, 12, -9],
+                ['0 (16).png', 19, 88, 14, -18]
+            ];
+            var pieces = document.getElementById('paper-pieces');
+
+            keepsakes.forEach(function (item) {
+                var button = document.createElement('button');
+                var image = document.createElement('img');
+                button.type = 'button';
+                button.className = 'paper-piece';
+                button.setAttribute('aria-label', 'Enlarge ' + item[0]);
+                button.style.setProperty('--x', item[1] + '%');
+                button.style.setProperty('--y', item[2] + '%');
+                button.style.setProperty('--size', item[3] + '%');
+                button.style.setProperty('--angle', item[4] + 'deg');
+                image.src = 'images/veshi/manera/' + item[0];
+                image.alt = '';
+                button.appendChild(image);
+                button.addEventListener('click', function () {
+                    var wasZoomed = button.classList.contains('is-zoomed');
+                    pieces.querySelectorAll('.is-zoomed').forEach(function (piece) {
+                        piece.classList.remove('is-zoomed');
+                    });
+                    if (!wasZoomed) {
+                        button.classList.add('is-zoomed');
+                    }
+                });
+                pieces.appendChild(button);
+            });
+
+            $('#memory-overlay').on('click', function (event) {
+                if (event.target === this) {
+                    $(this).prop('hidden', true).attr('aria-hidden', 'true');
+                    pieces.querySelectorAll('.is-zoomed').forEach(function (piece) {
+                        piece.classList.remove('is-zoomed');
+                    });
+                }
+            });
+
+            $(document).on('keydown', function (event) {
+                var keyboardEvent = event.originalEvent || event;
+                if ((keyboardEvent.key === 'Escape' || keyboardEvent.code === 'Space') && !$('#memory-overlay').prop('hidden')) {
+                    event.preventDefault();
+                    $('#memory-overlay').prop('hidden', true).attr('aria-hidden', 'true');
+                    pieces.querySelectorAll('.is-zoomed').forEach(function (piece) {
+                        piece.classList.remove('is-zoomed');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
