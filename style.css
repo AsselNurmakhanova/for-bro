@@ -14,12 +14,19 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    background: #f1c40f;
+    background: url('images/picnic.jpg') no-repeat center center fixed;
 }
 
 h1 {
     font-family:'Lucida Handwriting',cursive;
     color: #c0392b;
+}
+
+p {
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.4;
+    color: #2c3e50;
 }
 
 .magazine-container {
@@ -33,7 +40,7 @@ h1 {
 }
 
 .flipbook .hard {
-    background: #c0392b !important;
+    background: #e879a0 !important;
     color: #fff;
     font-weight: bold;
     border: none; 
@@ -44,6 +51,17 @@ h1 {
     font-weight: lighter;
     opacity: 0.7;
     font-size: 14px;
+}
+
+.flipbook .page,
+.flipbook .hard {
+    position: relative;
+}
+
+.flipbook .page > *,
+.flipbook .hard > * {
+    position: relative;
+    z-index: 1;
 }
 
 .flipbook .page {
@@ -57,15 +75,123 @@ h1 {
     height: 100%;
 }
 
+.flipbook .page::before,
+.flipbook .page::after {
+    position: absolute;
+    z-index: 0;
+    width: 310px;
+    height: 310px;
+    background: url('images/corner.png') no-repeat center / contain;
+    content: "";
+    pointer-events: none;
+    z-index: 0;
+}
+
+.flipbook .page::before {
+    bottom: 0;
+    left: 0;
+}
+
+.flipbook .page::after {
+    top: 0;
+    right: 0;
+    transform: rotate(180deg);
+}
+
 .page img {
     width: 70%;
     object-fit: cover;
     margin: auto;
 }
 
+.flipbook .photo-page {
+    justify-content: flex-start;
+    overflow: hidden;
+    padding: 18px 12px 12px;
+}
+
+.photo-page h1 {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    font-size: 24px;
+    text-align: center;
+}
+
+.memory-collage {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+}
+
+.memory-collage .memory-photo {
+    position: absolute;
+    z-index: var(--layer);
+    top: var(--y);
+    left: var(--x);
+    width: var(--size);
+    height: 27%;
+    margin: 0;
+    border: 4px solid #fffaf3;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(48, 30, 20, 0.35);
+    transform: translate(-50%, -50%) rotate(var(--angle));
+}
+
+.spotify-embed {
+    display: block;
+    flex: 0 0 352px;
+    width: min(100%, 420px);
+    max-width: 100%;
+    height: 352px;
+    border: 0;
+    border-radius: 12px;
+}
+
+.spotify-fallback {
+    color: #1db954;
+    font-size: 13px;
+}
+
 .flipbook .page small {
     font-size: 14px;
     margin-bottom: 10px;
+}
+
+.flipbook .reasons-page {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 8px;
+    overflow: hidden;
+    padding: 18px 16px;
+}
+
+.reasons-page h1 {
+    flex: 0 0 auto;
+    font-size: 20px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.reasons-list {
+    column-count: 2;
+    column-gap: 16px;
+    column-fill: balance;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding-left: 36px;
+}
+
+.reasons-list li {
+    break-inside: avoid;
+    margin-bottom: 4px;
+    padding-left: 2px;
+    font-size: 12px;
+    line-height: 1.15;
 }
 
 .flipbook .letter-page {
@@ -108,7 +234,10 @@ h1 {
     z-index: 2;
 }
 
-.letter-collage .manera-rechi {
+.letter-collage .manera-rechi,
+.letter-collage .byti,
+.letter-collage .cons,
+.letter-collage .outfits {
     cursor: pointer;
 }
 
